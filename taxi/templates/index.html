@@ -1,8 +1,83 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="intro" >
+	<h1>TaxiGo - сервис надежного такси</h1>
+	<h2>Закажите такси уже сейчас</h2>
+	<button>заказать сейчас</button>
+</div>
 
-{% block content %}
-<h1>Taxi Services</h1>
-<p>
-    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Expedita eum recusandae alias similique pariatur iure sapiente esse quaerat neque aperiam autem quibusdam debitis, odio quod accusantium itaque, numquam doloremque distinctio.
-</p>
+<!--  -->
+<div id="how-we-work">
+	<h2>Как мы работаем?</h2>
+	<h3>
+		Мы обеспечиваем быстрые и комфортные поездки по городу и трансфер из
+		аэропорта
+	</h3>
+	<p>Заказать трансфер можно просто в несколько кликов на нашем сайте.</p>
+</div>
+<div class="icons">
+	<div id="find-icon">
+		<img src="media/find-icon.svg" width="50px" />
+		<h4>Поиск</h4>
+		<p>введите необходимый маршрут и даты в поисковом окне и нажмите “Найти”</p>
+	</div>
+	<div id="contract-icon">
+		<img src="media/contract-icon.svg" width="50px" />
+		<h4>Оформление</h4>
+		<p>выберете подходящий для Вас класс автомобиля и заполните форму заказа</p>
+	</div>
+	<div id="phone-icon">
+		<img src="media/phone-icon.svg" width="50px" />
+		<h4>Подтверждение</h4>
+		<p>
+			получите подтверждение Вашего заказа по почте, телефону или в соц. сетях
+		</p>
+	</div>
+	<div id="taxi-icon">
+		<img src="media/taxi-icon.svg" width="50px" />
+		<h4>Поездка</h4>
+		<p>
+			подача автомобиля к прибытию или на Ваш адрес, поездка по выбранному Вами
+			маршруту
+		</p>
+	</div>
+</div>
+
+<!--  -->
+<div id="advantages">
+	<h2>Наши преимущества</h2>
+	<h4>
+		Для комфортной поездки наш сервис предоставляет целый ряд базовых услуг
+	</h4>
+	<p>Мы следим за качеством выполнения каждой поездки!</p>
+</div>
+<div class="block-icons">
+	<div id="coins-icon">
+		<img src="media/coins-icon.svg" width="25px"/>
+		<h4>Фиксированная цена</h4>
+	</div>
+	<div id="ban-icon">
+		<img src="media/ban-icon.svg" width="25px"/>
+		<h4>Бесплатная отмена</h4>
+	</div>
+	<div id="clock-icon">
+		<img src="media/clock-icon.svg" width="25px"/>
+		<h4>Работаем 24/7</h4>
+	</div>
+	<div id="shield-icon">
+		<img src="media/shield-icon.svg" width="25px"/>
+		<h4>Безопасноть и опытные водители</h4>
+	</div>
+	<div id="car-icon">
+		<img src="media/car-icon.svg" width="25px"/>
+		<h4>Классификация автомобилей</h4>
+	</div>
+	<div id="info-icon">
+		<img src="media/info-icon.svg" width="25px"/>
+		<h4>СМС информирование</h4>
+	</div>
+	<div id="pet-icon">
+		<img src="media/pet-icon.svg" width="25px"/>
+		<h4>Перевозка питомцев</h4>
+	</div>
+</div>
 {% endblock %}
