@@ -1,4 +1,35 @@
-h1 {
+/* h1 {
     font-family: Lobster, Monospace;
     color:darkslateblue;
+} */
+
+
+/* Footer */
+.footer {
+	display: inline-table;
+	margin: 30px;
 }
+
+footer {
+	background-color: #333333;
+	color: white;
+	position: relative;
+}
+
+.footer a {
+	display: block;
+	text-decoration: none;
+	color: white;
+}
+
+#left-footer {
+	display: inline;
+}
+
+#right-footer {
+	display: inline;
+	margin-left: 1000px;
+}
+
+/* Footer */
+
