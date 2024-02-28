@@ -1,0 +1,26 @@
+{% extends "taxi/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-section">
+  <div class="media">
+    <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+    <div class="media-body">
+      <h2 class="account-heading">{{ user.first_name }} {{ user.last_name }}</h2>
+      <p class="text-secondary">{{ user.email }}</p>
+    </div>
+    {{ driver.car }}
+  </div>
+
+  <div class="driver-info">
+    <h3>Информация о водителе</h3> <ul>
+      <li>Автомобиль: {{ driver.car }}</li>
+      <li>Тип автомобиля: {{ driver.car_type }}</li>
+      <li>Опыт: {{ driver.experience }} лет</li>
+    </ul>
+    <p class="driver-rating">Рейтинг: В разработке</p>
+  </div>
+
+  </div>
+</div>
+{% endblock content %}

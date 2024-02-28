@@ -1,0 +1,14 @@
+.logout-container {
+    text-align: center;
+    padding: 50px;
+  }
+  
+  .logout-container a {
+    color: #333333;
+    font-size: 18px;
+    text-decoration: none;
+  }
+  
+  .logout-container a:hover {
+    color: #000000;
+  }

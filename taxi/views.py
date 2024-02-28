@@ -41,7 +41,7 @@ def driver_profile(request):
     context = {
         'driver': driver
     }
-    return render(request, 'driver_profile.html', context)
+    return render(request, 'taxi/driver_profile.html', context)
 
 @login_required
 def client_profile(request):
@@ -54,7 +54,7 @@ def client_profile(request):
     context = {
         'client': client
     }
-    return render(request, 'client_profile.html', context)
+    return render(request, 'taxi/client_profile.html', context)
 
 def driver_register(request):
     if request.method == 'POST':
@@ -98,7 +98,7 @@ def driver_register(request):
     else:
         user_form = DriverRegistrationForm()
 
-    return render(request, 'register_driver.html', {'form': user_form})
+    return render(request, 'taxi/register_driver.html', {'form': user_form})
 
 def client_register(request):
     if request.method == 'POST':
@@ -134,11 +134,11 @@ def client_register(request):
     else:
         user_form = ClientRegistrationForm()
 
-    return render(request, 'register_client.html', {'form': user_form})
+    return render(request, 'taxi/register_client.html', {'form': user_form})
 
 def register(request):
-    return render(request, 'register.html')
+    return render(request, 'taxi/register.html')
 
 def index(request):
     context = {}
-    return render(request, 'index.html', context)
+    return render(request, 'taxi/index.html', context)
