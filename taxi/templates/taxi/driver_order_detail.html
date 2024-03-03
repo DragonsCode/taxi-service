@@ -1,0 +1,23 @@
+{% extends 'taxi/base.html' %}
+{% load static %}
+{% block content %}
+<h1>Детали заказа №{{ order.pk }}</h1>
+
+<div class="order-details">
+  <p><strong>Клиент:</strong> {{ order.client.user.first_name }}</p>
+  <p><strong>Адрес подачи:</strong> {{ order.address_from }}</p>
+  <p><strong>Адрес назначения:</strong> {{ order.address_to }}</p>
+  <p><strong>Цена:</strong> {{ order.price }}</p>
+  <p><strong>Статус:</strong> {{ order.status }}</p>
+  <p><strong>Дата и время прибытия:</strong> {{ order.date_arrive }}</p>
+  <p><strong>Дата и время начала поездки:</strong> {{ order.date_start }}</p>
+  <p><strong>Дата и время окончания поездки:</strong> {{ order.date_end }}</p>
+</div>
+
+{% if order.status != 'Завершен' or order.status != 'Отменен' %}
+  <a href="{% url 'driver_order_complete' order.pk %}">Завершить заказ</a>
+{% else %}
+  <p>Заказ завершен</p>
+{% endif %}
+
+{% endblock %}

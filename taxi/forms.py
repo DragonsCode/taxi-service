@@ -43,9 +43,8 @@ class ClientRegistrationForm(UserCreationForm):
     last_name = forms.CharField(label='Фамилия', max_length=150, required=True)
     middle_name = forms.CharField(max_length=200, required=True, label='Отчество')
     phone = PhoneNumberField(region="RU", required=True, label='Номер телефона')
-    photo = forms.ImageField(required=False, label='Ваше фото')
     email = forms.EmailField(required=True, label='Электронная почта')
 
     class Meta(UserCreationForm.Meta):
         model = CustomUser
-        fields = ['photo', 'first_name', 'last_name', 'middle_name', 'phone', 'email', 'password1', 'password2']
+        fields = ['first_name', 'last_name', 'middle_name', 'phone', 'email', 'password1', 'password2']

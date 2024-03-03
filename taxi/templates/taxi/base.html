@@ -7,6 +7,7 @@
         <link rel="stylesheet" type="text/css" href="{% static 'logout.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'register.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'profile.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'orders.css' %}">
         <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta property="og:title" content="TaxiGo">
@@ -23,8 +24,8 @@
             <img src="{% static 'media/logo.png' %}" width="130px">
             <ul>   
                 <li><a href="{% url 'index' %}">TaxiGo</a></li>
-                <li><a href="{% url 'index' %}">Пассажирам</a></li>
-                <li><a href="#">Водителям</a></li>
+                <li><a href="{% url 'register_client' %}">Пассажирам</a></li>
+                <li><a href="{% url 'register_driver' %}">Водителям</a></li>
                 <li><a href="{% url 'login' %}">Войти</a></li>
                 <li><a href="{% url 'register' %}">Регистрация</a></li>
             </ul>
@@ -39,8 +40,8 @@
     <footer>
         <div id="left-footer">
          <div class="footer">
-            <a href="#">Политика конфиденциальности</a><br>
-            <a href="#">Пользовательское соглашение</a><br>
+            <a href="{% url 'privacy_policy' %}">Политика конфиденциальности</a><br>
+            <a href="{% url 'user_agreement' %}">Пользовательское соглашение</a><br>
             <img src="{% static 'media/logo.png' %}" width="150px" height="150px">
             <p>©2024 TaxiGo</p>
          </div>
@@ -54,9 +55,10 @@
          <div class="footer" >
             <h4>Ссылки: </h4>
             <div>
-                <a href="#">Главная</a>
-                <a href="#">Водителям</a>
-                <a href="#">О нас</a>
+                <a href="{% url 'index' %}">Главная</a>
+                <a href="{% url 'register_client' %}">Пассажирам</a>
+                <a href="{% url 'register_driver' %}">Водителям</a>
+                <a href="{% url 'about' %}">О нас</a>
             </div>
          </div>
       </div>

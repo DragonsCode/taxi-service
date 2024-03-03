@@ -34,7 +34,6 @@ class Driver(models.Model):
     description = models.TextField(max_length=1000)
     car_type = models.CharField(max_length=200)
     experience = models.IntegerField(default=0)
-    balance = models.IntegerField(default=0)
     verified = models.BooleanField(default=False)
 
     def __str__(self):
@@ -45,7 +44,6 @@ class Client(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     middle_name = models.CharField(max_length=200)
     phone = PhoneNumberField(blank=False, unique=True)
-    photo = models.ImageField(default='default.jpg', upload_to='client_pics')
 
     def __str__(self):
         return str(self.user)
@@ -69,16 +67,6 @@ class Order(models.Model):
     client_comment = models.TextField(max_length=1000)
     client_rating = models.IntegerField(default=0)
     driver_rating = models.IntegerField(default=0)
-
-    def __str__(self):
-        return self.pk
-
-class Withdraw(models.Model):
-    driver = models.ForeignKey(Driver, on_delete=models.CASCADE)
-    amount = models.IntegerField()
-    method = models.CharField(max_length=200)
-    date = models.DateTimeField()
-    paid = models.BooleanField(default=False)
 
     def __str__(self):
         return self.pk
