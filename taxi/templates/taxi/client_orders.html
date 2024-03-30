@@ -28,7 +28,7 @@
           <td class="price">{{ order.price }}</td>
           <td class="status">{{ order.status }}</td>
           <td class="details">
-            <a href="{% url 'client_order_detail' order.pk %}">Подробнее</a>
+            <a href="{% url 'order_client_detail' order.pk %}">Подробнее</a>
           </td>
         </tr>
         {% endfor %}

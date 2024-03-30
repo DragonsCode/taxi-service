@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Маршрут</title>
+    <!-- Подключите необходимые библиотеки для отображения карты, например, folium -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+</head>
+<body>
+    <!-- Создайте контейнер для карты -->
+    <div id="map" style="height: 500px;"></div>
+
+    <script>
+        var map = L.map('map').setView([{{ point1_lat }}, {{ point1_lon }}], 10);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+                '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            id: 'mapbox/streets-v11',
+            tileSize: 512,
+            zoomOffset: -1
+        }).addTo(map);
+
+        // Добавьте маркеры для точек
+        L.marker([{{ point1_lat }}, {{ point1_lon }}]).addTo(map)
+            .bindPopup('Точка 1');
+
+        L.marker([{{ point2_lat }}, {{ point2_lon }}]).addTo(map)
+            .bindPopup('Точка 2');
+
+        // Добавьте линию маршрута
+        L.polyline([
+            [{{ point1_lat }}, {{ point1_lon }}],
+            [{{ point2_lat }}, {{ point2_lon }}]
+        ], {color: 'blue'}).addTo(map);
+    </script>
+</body>
+</html>

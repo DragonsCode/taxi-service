@@ -1,0 +1,51 @@
+{% extends 'taxi/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h1>Order a Taxi</h1>
+
+<form id="taxi-order-form" method="post">
+    {% csrf_token %}
+
+    <h2>Детали заказа</h2>
+    {{ form|crispy }}
+
+    <button type="submit">Заказать Такси</button>
+</form>
+
+<div id="map-container"></div>
+
+<script>
+$(document).ready(function() {
+    // $('#taxi-order-form').submit(function(event) {
+    //
+    // });
+
+    // Whenever the address or car type fields change:
+    $('#pick_up_address, #drop_off_address, #car_type').change(function() {
+        var pickUpAddress = $('#pick_up_address').val();
+        var dropOffAddress = $('#drop_off_address').val();
+        var carType = $('#car_type').val();
+
+        // Send an AJAX request to the backend to calculate the price based on the new values
+        $.ajax({
+            url: '/calculate_price/', // Replace with your price calculation URL
+            method: 'GET',
+            data: {
+                pick_up_address: pickUpAddress,
+                drop_off_address: dropOffAddress,
+                car_type: carType
+            },
+            success: function(response) {
+                // Update the price field with the calculated price
+                $('#price_field').val(Math.ceil(response.price));
+                $('#distance_field').val(Math.ceil(response.distance));
+            },
+            error: function() {
+                // Handle AJAX errors (e.g., display an error message)
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

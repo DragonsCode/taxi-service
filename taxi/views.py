@@ -1,238 +1,139 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login
 from django.contrib.auth import get_user_model
-from django.contrib import messages
 
-from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView # for future use
 
 from django.shortcuts import render, redirect
 
-from .forms import DriverRegistrationForm, ClientRegistrationForm
+from osmapi import OsmApi
+
 from .models import Driver, Client, Order
+from .forms import NewOrderForm, NewUserOrderForm
+from .map_funcs import calculate_distance, decode_polyline, pos, calculate_order
 
-class OrderMarketListView(ListView):
-    model = Order
-    template_name = 'taxi/order_market_list.html'
-    context_object_name = 'orders'
-    paginate_by = 10
+import requests
+import folium
 
-    def get_queryset(self):
-        return Order.objects.filter(status='Новый')
-    
-    def dispatch(self, request, *args, **kwargs):
+
+def request_order(request):
+    if request.method == 'POST':
+        # Use NewUserOrderForm for both authenticated and unauthenticated users
         if not request.user.is_authenticated:
-            return redirect('login')
-        if not Driver.objects.filter(user=request.user).exists():
-            return redirect('driver_register')
-        return super().dispatch(request, *args, **kwargs)
+            form = NewUserOrderForm(request.POST)
 
-class OrderMarketDetailView(DetailView):
-    model = Order
-    template_name = 'taxi/order_market_detail.html'
-    context_object_name = 'order'
+            if form.is_valid():
+                # Create a new User instance (assuming email is the username)
+                user = User.objects.create_user(
+                    email=form.cleaned_data['email'],
+                    password=form.cleaned_data['password1']
+                )
+                # Create a new Client instance associated with the User
+                client = Client.objects.create(user=user)
 
-    def dispatch(self, request, *args, **kwargs):
+                # Populate remaining Client fields and Order data
+                client.first_name = form.cleaned_data['first_name']
+                client.last_name = form.cleaned_data['last_name']
+                client.middle_name = form.cleaned_data['middle_name']
+                client.phone = form.cleaned_data['phone']
+                client.save()
+            else:
+                return render(request, 'taxi/request_order.html', {'form': form})
+        else:
+            client = Client.objects.get(user=request.user)
+            form = NewOrderForm(request.POST)
+            if not form.is_valid():
+                return render(request, 'taxi/request_order.html', {'form': form})
+
+        price, distance = calculate_order(form.cleaned_data['address_from'], form.cleaned_data['address_to'], form.cleaned_data['car_type'])
+
+        # Order data (assuming price is calculated elsewhere)
+        order = Order(
+            address_from=form.cleaned_data['address_from'],
+            address_to=form.cleaned_data['address_to'],
+            car_type=form.cleaned_data['car_type'],
+            date_arrive=form.cleaned_data['date_arrive'],
+            additional_seats=form.cleaned_data['additional_seats'],
+            additional_poster=form.cleaned_data['additional_poster'],
+            price=price,
+            client=client,  # Associate with the newly created client
+            distance=distance,
+            status='Новый',
+            # ... other order fields (driver, status, etc.)
+        )
+
+        order.save()
+
+        # Handle successful order creation (e.g., redirect to confirmation page)
+        return redirect('profile')
+    else:
         if not request.user.is_authenticated:
+            form = NewUserOrderForm()
+            return render(request, 'taxi/request_order.html', {'form': form})
+        
+        User = get_user_model()
+        user = User.objects.get(email=request.user)
+        if not user:
+            messages.error(request, 'Пользователь не найден')
             return redirect('login')
-        if not Driver.objects.filter(user=request.user).exists():
-            return redirect('driver_register')
-        return super().dispatch(request, *args, **kwargs)
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        User = get_user_model()
-        user = User.objects.get(email=self.request.user)
-        driver = Driver.objects.get(user=user)
-        context['driver'] = driver
-        return context
-
-class DriverOrderListView(ListView):
-    model = Order
-    template_name = 'taxi/driver_orders.html'
-    context_object_name = 'orders'
-    paginate_by = 10
-
-    def get_queryset(self):
-        User = get_user_model()
-        user = User.objects.get(email=self.request.user)
-        driver = Driver.objects.get(user=user)
-        return Order.objects.filter(driver=driver)
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        User = get_user_model()
-        user = User.objects.get(email=self.request.user)
-        driver = Driver.objects.get(user=user)
-        context['driver'] = driver
-        return context
-    
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect('login')
-        if not Driver.objects.filter(user=request.user).exists():
-            return redirect('driver_register')
-        return super().dispatch(request, *args, **kwargs)
-
-class DriverOrderDetailView(DetailView):
-    model = Order
-    template_name = 'taxi/driver_order_detail.html'
-    context_object_name = 'order'
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect('login')
-        if not Driver.objects.filter(user=request.user).exists():
-            return redirect('driver_register')
-        return super().dispatch(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        User = get_user_model()
-        user = User.objects.get(email=self.request.user)
-        driver = Driver.objects.get(user=user)
-        context['driver'] = driver
-        return context
-
-
-class ClientOrderListView(ListView):
-    model = Order
-    template_name = 'taxi/client_orders.html'
-    context_object_name = 'orders'
-    paginate_by = 10
-
-    def get_queryset(self):
-        User = get_user_model()
-        user = User.objects.get(email=self.request.user)
         client = Client.objects.get(user=user)
-        return Order.objects.filter(client=client)
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        User = get_user_model()
-        user = User.objects.get(email=self.request.user)
-        client = Client.objects.get(user=user)
-        context['client'] = client
-        return context
-    
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect('login')
-        if not Client.objects.filter(user=request.user).exists():
+        if not client:
+            messages.error(request, 'Клиент не найден')
             return redirect('client_register')
-        return super().dispatch(request, *args, **kwargs)
+        
+        form = NewOrderForm()
 
-class ClientOrderDetailView(DetailView):
-    model = Order
-    template_name = 'taxi/client_order_detail.html'
-    context_object_name = 'order'
+        return render(request, 'taxi/request_order.html', {'form': form})
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect('login')
-        if not Client.objects.filter(user=request.user).exists():
-            return redirect('client_register')
-        return super().dispatch(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        User = get_user_model()
-        user = User.objects.get(email=self.request.user)
-        client = Client.objects.get(user=user)
-        context['client'] = client
-        return context
-    
-    def get_queryset(self):
-        User = get_user_model()
-        user = User.objects.get(email=self.request.user)
-        client = Client.objects.get(user=user)
-        return Order.objects.filter(client=client)
+def calculate_price(request):
+    # Access request parameters (assuming they are named pick_up_address, drop_off_address, and car_type)
+    pick_up_address = request.GET.get('pick_up_address')
+    drop_off_address = request.GET.get('drop_off_address')
+    car_type = request.GET.get('car_type')
+    try:
+        calculated_price, distance_km = calculate_order(pick_up_address, drop_off_address, car_type)
+    except Exception as e:
+        return JsonResponse({'error': str(e)})
+    return JsonResponse({'price': calculated_price, 'distance': distance_km})
 
 
-@login_required
-def client_order_cancel(request, pk):
-    User = get_user_model()
-    user = User.objects.get(email=request.user)
-    client = Client.objects.get(user=user)
-    if not client:
-        messages.error(request, 'Клиент не найден')
-        return redirect('client_register')
-    if not Order.objects.filter(id=pk).exists():
-        messages.error(request, 'Заказ не найден')
-        return redirect('client_orders')
-    
-    order = Order.objects.get(pk=pk)
+def show_route(request):
+    point1_lat = request.GET.get('point1_lat')
+    point1_lon = request.GET.get('point1_lon')
+    point2_lat = request.GET.get('point2_lat')
+    point2_lon = request.GET.get('point2_lon')
 
-    if order.client != client:
-        messages.error(request, 'Вы не можете отменить этот заказ')
-        return redirect('client_orders')
-    
-    if order.status == 'Отменен':
-        messages.error(request, 'Заказ уже был отменен')
-        return redirect('client_orders')
-    
-    order.status = 'Отменен'
-    order.save()
-    messages.success(request, 'Заказ успешно отменен')
-    return redirect('client_orders')
+    # Запрос к OSRM API для получения маршрута для автомобиля
+    osrm_url = f'http://router.project-osrm.org/route/v1/driving/{point1_lon},{point1_lat};{point2_lon},{point2_lat}?overview=full&steps=true'
+    response = requests.get(osrm_url)
+    route_data = response.json()
 
+    # Создание карты с помощью folium
+    my_map = folium.Map(location=[point1_lat, point1_lon], zoom_start=12)
 
-@login_required
-def driver_order_accept(request, pk):
-    User = get_user_model()
-    user = User.objects.get(email=request.user)
-    driver = Driver.objects.get(user=user)
-    if not driver:
-        messages.error(request, 'Водитель не найден')
-        return redirect('driver_register')
-    if not Order.objects.filter(id=pk).exists():
-        messages.error(request, 'Заказ не найден')
-        return redirect('driver_orders')
+    # Добавление маршрута на карту
+    route_coordinates = []
+    for leg in route_data['routes'][0]['legs']:
+        for step in leg['steps']:
+            geometry = step['geometry']
+            coordinates = decode_polyline(geometry)
+            route_coordinates.extend(coordinates)
+    folium.PolyLine(locations=route_coordinates, color='blue').add_to(my_map)
 
-    order = Order.objects.get(pk=pk)
+    # Вычисление длины маршрута
+    distance_km = calculate_distance(route_coordinates)
 
-    if order.driver:
-        messages.error(request, 'Вы не можете принять этот заказ')
-        return redirect('driver_orders')
-    
-    if order.status != 'Новый':
-        messages.error(request, 'Заказ уже был принят')
-        return redirect('driver_orders')
+    # Добавление маркеров для точек
+    folium.Marker([point1_lat, point1_lon], popup=f'Точка 1. Расстояние: {distance_km:.2f} км').add_to(my_map)
+    folium.Marker([point2_lat, point2_lon], popup=f'Точка 2. Расстояние: {distance_km:.2f} км').add_to(my_map)
 
-    order.status = 'Принят'
-    order.save()
-    messages.success(request, 'Заказ успешно принят')
-    return redirect('driver_orders')
+    # Получение HTML-кода карты
+    map_html = my_map.get_root().render()
 
-@login_required
-def driver_order_complete(request, pk):
-    User = get_user_model()
-    user = User.objects.get(email=request.user)
-    driver = Driver.objects.get(user=user)
-    if not driver:
-        messages.error(request, 'Водитель не найден')
-        return redirect('driver_register')
-    if not Order.objects.filter(id=pk).exists():
-        messages.error(request, 'Заказ не найден')
-        return redirect('driver_orders')
+    # Возвращение HTML-кода карты как HTTP-ответ
+    return HttpResponse(map_html)
 
-    order = Order.objects.get(pk=pk)
-
-    if order.driver != driver:
-        messages.error(request, 'Вы не можете завершить этот заказ')
-        return redirect('driver_orders')
-    
-    if order.status == 'Завершен':
-        messages.error(request, 'Заказ уже был завершен')
-        return redirect('driver_orders')
-
-    order.status = 'Завершен'
-    order.save()
-    messages.success(request, 'Заказ успешно завершен')
-    return redirect('driver_orders')
 
 @login_required
 def profile(request):
@@ -253,111 +154,6 @@ def profile(request):
     else:
         return redirect('register')
 
-@login_required
-def driver_profile(request):
-    User = get_user_model()
-    user = User.objects.get(email=request.user)
-    driver = Driver.objects.get(user=user)
-    if not driver:
-        messages.error(request, 'Driver profile not found')
-        return redirect('driver_register')
-    context = {
-        'driver': driver
-    }
-    return render(request, 'taxi/driver_profile.html', context)
-
-@login_required
-def client_profile(request):
-    User = get_user_model()
-    user = User.objects.get(email=request.user)
-    client = Client.objects.get(user=user)
-    if not client:
-        messages.error(request, 'Client profile not found')
-        return redirect('client_register')
-    context = {
-        'client': client
-    }
-    return render(request, 'taxi/client_profile.html', context)
-
-def driver_register(request):
-    if request.method == 'POST':
-        user_form = DriverRegistrationForm(request.POST)
-        if user_form.is_valid():
-            # Separate user and driver data extraction for clarity:
-            user_data = {
-                'first_name': user_form.cleaned_data['first_name'],
-                'last_name': user_form.cleaned_data['last_name'],
-                'email': user_form.cleaned_data['email'],
-                'password': user_form.cleaned_data['password1'],
-                # ... other user-specific fields from form.cleaned_data
-            }
-            driver_data = {
-                'middle_name': user_form.cleaned_data['middle_name'],
-                'phone': user_form.cleaned_data['phone'],
-                'photo': user_form.cleaned_data['photo'],
-                'car': user_form.cleaned_data['car'],
-                'car_photo': user_form.cleaned_data['car_photo'],
-                'passport_photo': user_form.cleaned_data['passport_photo'],
-                'insurance_photo': user_form.cleaned_data['insurance_photo'],
-                'license_photo': user_form.cleaned_data['license_photo'],
-                'description': user_form.cleaned_data['description'],
-                'car_type': user_form.cleaned_data['car_type'],
-                'experience': user_form.cleaned_data['experience'],
-                # ... other driver-specific fields from form.cleaned_data
-            }
-
-            # Create user object, ensuring secure password handling:
-            User = get_user_model()
-            user = User.objects.create_user(**user_data)
-            user.set_password(user_data['password'])  # Set password securely
-            user.save()
-
-            # Create driver object associated with the user:
-            driver = Driver.objects.create(user=user, **driver_data)
-
-            # Log in the user after successful registration:
-            login(request, user)
-            return redirect('index')  # Replace with your desired redirect url
-    else:
-        user_form = DriverRegistrationForm()
-
-    return render(request, 'taxi/register_driver.html', {'form': user_form})
-
-def client_register(request):
-    if request.method == 'POST':
-        user_form = ClientRegistrationForm(request.POST)
-        if user_form.is_valid():
-            # Separate user and client data extraction for clarity:
-            user_data = {
-                'first_name': user_form.cleaned_data['first_name'],
-                'last_name': user_form.cleaned_data['last_name'],
-                'email': user_form.cleaned_data['email'],
-                'password': user_form.cleaned_data['password1'],
-                # ... other user-specific fields from form.cleaned_data
-            }
-            client_data = {
-                'middle_name': user_form.cleaned_data['middle_name'],
-                'phone': user_form.cleaned_data['phone'],
-                'photo': user_form.cleaned_data['photo'],
-                # ... other client-specific fields from form.cleaned_data
-            }
-
-            # Create user object, ensuring secure password handling:
-            User = get_user_model()
-            user = User.objects.create_user(**user_data)
-            user.set_password(user_data['password'])  # Set password securely
-            user.save()
-
-            # Create client object associated with the user:
-            client = Client.objects.create(user=user, **client_data)
-
-            # Log in the user after successful registration:
-            login(request, user)
-            return redirect('index')  # Replace with your desired redirect url
-    else:
-        user_form = ClientRegistrationForm()
-
-    return render(request, 'taxi/register_client.html', {'form': user_form})
 
 def register(request):
     return render(request, 'taxi/register.html')

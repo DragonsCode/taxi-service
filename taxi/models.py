@@ -51,7 +51,8 @@ class Client(models.Model):
 class Order(models.Model):
     address_from = models.CharField(max_length=200)
     address_to = models.CharField(max_length=200)
-    driver = models.ForeignKey(Driver, on_delete=models.CASCADE)
+    driver = models.ForeignKey(Driver, on_delete=models.CASCADE, default=None, null=True)
+    car_type = models.CharField(max_length=200, default='standart')
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     price = models.IntegerField()
     prepayment = models.IntegerField(default=0)
@@ -61,10 +62,10 @@ class Order(models.Model):
     additional_seats = models.IntegerField(default=0)
     additional_poster = models.IntegerField(default=0)
     date_arrive = models.DateTimeField()
-    date_start = models.DateTimeField()
-    date_end = models.DateTimeField()
+    date_start = models.DateTimeField(default=None, null=True)
+    date_end = models.DateTimeField(default=None, null=True)
     status = models.CharField(max_length=200)
-    client_comment = models.TextField(max_length=1000)
+    client_comment = models.TextField(max_length=1000, default="")
     client_rating = models.IntegerField(default=0)
     driver_rating = models.IntegerField(default=0)
 
