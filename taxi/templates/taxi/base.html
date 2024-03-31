@@ -16,19 +16,25 @@
         <meta property="og:url" content="#">
         <meta property="og:description" content="TaxiGo - сервис надежного такси">
         <meta property="og:locale" content="ru">
+        <script src="https://kit.fontawesome.com/09207fd670.js" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
       
     </head>
 
     <header>
         <nav>
-            <img src="{% static 'media/logo.png' %}" width="130px">
+            <h1>TaxiGo</h1>
             <ul>   
-                <li><a href="{% url 'index' %}">TaxiGo</a></li>
-                <li><a href="{% url 'register_client' %}">Пассажирам</a></li>
-                <li><a href="{% url 'register_driver' %}">Водителям</a></li>
-                <li><a href="{% url 'login' %}">Войти</a></li>
-                <li><a href="{% url 'register' %}">Регистрация</a></li>
+                <li><a class="nav-link active" href="{% url 'index' %}">Главная</a></li>
+                {% if user.is_authenticated %} 
+                <li><a class="nav-link" href="{% url 'client_profile' %}">Профиль</a></li>
+                <li><a class="nav-link" href="{% url 'logout' %}">Выйти</a></li>
+                {% else %}
+                <li><a class="nav-link" href="{% url 'register_client' %}">Пассажирам</a></li>
+                <li><a class="nav-link" href="{% url 'register_driver' %}">Водителям</a></li>
+                <li><a class="nav-link" href="{% url 'login' %}">Войти</a></li>
+                <li><a class="nav-link" href="{% url 'register' %}">Регистрация</a></li>
+                {% endif %}
             </ul>
         </nav>
     </header>
@@ -38,30 +44,31 @@
         {% endblock %}
     </body>
     
+    <hr>
     <footer>
-        <div id="left-footer">
-         <div class="footer">
-            <a href="{% url 'privacy_policy' %}">Политика конфиденциальности</a><br>
+        <div class="footer">
+            <a href="{% url 'privacy_policy' %}">Политика конфиденциальности</a>
             <a href="{% url 'user_agreement' %}">Пользовательское соглашение</a><br>
-            <img src="{% static 'media/logo.png' %}" width="150px" height="150px">
-            <p>©2024 TaxiGo</p>
-         </div>
-      </div>
-      <div id="right-footer">
-         <div class="footer" >
-            <h4>Контакты:</h4>
-            <p>Телефон: </p>
-            <p>Адрес эл.почты: </p>
-         </div>
-         <div class="footer" >
-            <h4>Ссылки: </h4>
-            <div>
-                <a href="{% url 'index' %}">Главная</a>
-                <a href="{% url 'register_client' %}">Пассажирам</a>
-                <a href="{% url 'register_driver' %}">Водителям</a>
-                <a href="{% url 'about' %}">О нас</a>
-            </div>
-         </div>
+            <h2>TaxiGo</h2>
+            <p>&copy;2024 TaxiGo</p>
+        </div>
       </div>
     </footer>
+
+    <script>
+        let header = document.getElemeentsByTagName("header");
+        let nav = document.getElementsByTagName("nav");
+        let ul = document.getElemeentsByTagName("ul");
+        let li = document.createElement('li'); 
+        let a = document.getElementsByClassName("nav-link");
+        for (let i = 0; i < a.length; i++) {
+            a[i].addEventListener("click", function() {
+            let current = document.getElementsByClassName("active");
+            if (current.length > 0) { 
+            current[0].className = current[0].className.replace(" active", "");
+            }
+            this.className += " active";
+        });
+        }
+    </script>
 </html>

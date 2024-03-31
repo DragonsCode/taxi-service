@@ -4,10 +4,35 @@
 <div class="intro" >
 	<h1>TaxiGo - сервис надежного такси</h1>
 	<h2>Закажите такси уже сейчас</h2>
-	<button>заказать сейчас</button>
+	<form action="search">
+		<input type="search" name="address" class="searchAddress" placeholder="Откуда"/><br/>
+		<input type="search" name="address" class="searchAddress" placeholder="Куда"/><br/>
+		
+			<div class="price-item">
+				<div class="car-class">
+					<img class="details" src="{% static 'media/economy.png' %}" alt="">
+					<p class="details">Стандарт<br><i class="fa-solid fa-user" style="color: #000000;"></i>&times;3 <i class="fa-solid fa-suitcase" style="color: #000000;"></i>&times;3 </p>
+					<p class="details">от &#8381;</p>
+				</div>
+				<div class="car-class">
+					<img class="details" src="{% static 'media/comfort.png' %}" alt="">
+					<p class="details">Комфорт<br><i class="fa-solid fa-user" style="color: #000000;"></i>&times;3 <i class="fa-solid fa-suitcase" style="color: #000000;"></i>&times;3 </p>
+					<p class="details">от 9999&#8381;</p>
+				</div>
+				<div class="car-class">
+					<img class="details" src="{% static 'media/minivan.png' %}" alt="">
+					<p class="details">Минивэн<br><i class="fa-solid fa-user" style="color: #000000;"></i>&times;8 <i class="fa-solid fa-suitcase" style="color: #000000;"></i>&times;6 </p>
+					<p class="details">от &#8381;</p>
+				</div>
+			</div>
+		
+		<a href="{% url 'request_order' %}">Заказать сейчас</a>
+	</form>
 </div>
 
 <!--  -->
+<hr>
+
 <div id="how-we-work">
 	<h2>Как мы работаем?</h2>
 	<h3>
@@ -45,29 +70,30 @@
 </div>
 
 <!--  -->
+<hr>
 <div id="advantages">
 	<h2>Наши преимущества</h2>
-	<h4>
+	<h5>
 		Для комфортной поездки наш сервис предоставляет целый ряд базовых услуг
-	</h4>
+	</h5>
 	<p>Мы следим за качеством выполнения каждой поездки!</p>
 </div>
 <div class="block-icons">
 	<div id="coins-icon">
 		<img src="{% static 'media/coins-icon.svg' %}" width="25px"/>
-		<h4>Фиксированная цена</h4>
+		<h5>Фиксированная цена</h5>
 	</div>
 	<div id="ban-icon">
 		<img src="{% static 'media/ban-icon.svg' %}" width="25px"/>
-		<h4>Бесплатная отмена</h4>
+		<h5>Бесплатная отмена</h5>
 	</div>
 	<div id="clock-icon">
 		<img src="{% static 'media/clock-icon.svg' %}" width="25px"/>
-		<h4>Работаем 24/7</h4>
+		<h5>Работаем 24/7</h5>
 	</div>
 	<div id="shield-icon">
 		<img src="{% static 'media/shield-icon.svg' %}" width="25px"/>
-		<h4>Безопасноть и опытные водители</h4>
+		<h5>Безопасноть и опытные водители</h5>
 	</div>
 	<div id="car-icon">
 		<img src="{% static 'media/car-icon.svg' %}" width="25px"/>
@@ -75,11 +101,39 @@
 	</div>
 	<div id="info-icon">
 		<img src="{% static 'media/info-icon.svg' %}" width="25px"/>
-		<h4>СМС информирование</h4>
+		<h5>СМС информирование</h5>
 	</div>
 	<div id="pet-icon">
 		<img src="{% static 'media/pet-icon.svg' %}" width="25px"/>
-		<h4>Перевозка питомцев</h4>
+		<h5>Перевозка питомцев</h5>
+	</div>
+</div>
+
+<hr>
+
+<div id="directions">
+	<h2>Наши направления</h2>
+	<div class="rows">
+		<ul>
+			<li>Аэропорт Минеральные воды</li>
+			<li>Кисловодск</li>
+			<li>Ессентуки</li>
+			<li>Эльбрус</li>
+		</ul>
+	</div>
+	<div class="rows">
+		<ul>
+			<li>Аэропорт Ставрополь</li>
+			<li>Пятигорск</li>
+			<li>Домбай</li>
+		</ul>
+	</div>
+	<div class="rows">
+		<ul>
+			<li>ЖД Вокзалы Кисловодск, Невинномыск</li>
+			<li>Ростов</li>
+			<li>Архыз</li>
+		</ul>	
 	</div>
 </div>
 {% endblock %}

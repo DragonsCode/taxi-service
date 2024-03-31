@@ -2,18 +2,20 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
-<h1>Order a Taxi</h1>
 
-<form id="taxi-order-form" method="post">
-    {% csrf_token %}
-
-    <h2>Детали заказа</h2>
-    {{ form|crispy }}
-
-    <button type="submit">Заказать Такси</button>
-</form>
-
-<div id="map-container"></div>
+<div class="order-container"> 
+    <form id="taxi-order-form" method="post">
+        <h1>Заказать Такси</h1>
+        {% csrf_token %}
+    
+        <h3>Детали заказа:</h3>
+        {{ form|crispy }}
+    
+        <button type="submit">Заказать Такси</button>
+    </form>
+    
+    <div id="map-container"></div>
+</div>
 
 <script>
 $(document).ready(function() {

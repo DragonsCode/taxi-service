@@ -1,5 +1,57 @@
 /* driver and client orders */
 
+#taxi-order-form {
+  margin: 60px auto 60px auto;
+  width: 500px; /* Adjust width as needed */
+  padding: 20px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);    border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+#taxi-order-form h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#taxi-order-form h3 {
+  margin-bottom: 10px;
+}
+
+#taxi-order-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+
+#taxi-order-form input[type="text"],
+#taxi-order-form select,
+#taxi-order-form input[type="datetime-local"],
+#taxi-order-form input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+#taxi-order-form button {
+   background-color: rgb(55, 155, 55); /* Match footer color */
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 16px;
+    width: 100%;
+}
+
+#taxi-order-form button:hover {
+  background-color: green;
+}
+
 .taxi-theme {
     background-color: #ffe0c7;
   }
