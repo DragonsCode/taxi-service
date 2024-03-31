@@ -1,0 +1,306 @@
+/* BASE CSS */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333333;
+    background-color: #f7f7f7;
+}
+
+a {
+    text-decoration: none;
+}
+
+h1, h2, h3, h4 {
+    font-weight: bold;
+}
+
+img {
+    max-width: 100%;
+}
+
+/* BASE CSS */
+
+/* HEADER CSS */
+
+header {
+    padding: 10px;
+    position: sticky;
+    top: 0;
+    background-color: orangered;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    /* background-color: orangered;
+    color: #333333; */
+}
+
+.navbar .container-fluid {
+    background-color: orangered;
+    color: #333333; 
+}
+
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+}
+
+nav li {
+    margin-right: 30px;
+}
+
+nav a {
+    color: #333333;
+    font-weight: 500;
+}
+
+nav .active, nav a:hover {
+    color: #000000;
+}
+
+
+/* HEADER CSS */
+
+/* MAIN CSS */
+
+.intro {
+    /* background: url('./media/bg-taxi.jpg') repeat center; */
+    color: #333333;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.intro h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.intro h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.intro a {
+    background-color: rgb(55, 155, 55);
+    color: #ffffff;
+    font-size: 16px;
+    display: inline-block;
+    padding: 10px 20px;
+    width: 100% ;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.intro a:hover {
+    background-color: green;
+}
+
+
+#how-we-work {
+    padding: 50px 20px;
+}
+
+#how-we-work h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#how-we-work h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#how-we-work p {
+    text-align: center;
+}
+
+.icons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 50px 20px;
+}
+
+.icons div {
+    text-align: center;
+    margin: 20px;
+}
+
+.icons img {
+    margin-bottom: 10px;
+}
+
+.icons h4 {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.icons p {
+    font-size: 14px;
+}
+
+#advantages {
+    color: #333333;
+    padding: 50px 20px;
+    /* margin-bottom: 30px; */
+}
+
+#advantages h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+#advantages h5 {
+    font-size: 16px;
+    margin-bottom: 5px;
+    text-align: center;
+    color: #333;
+}
+
+#advantages p {
+    text-align: center;
+}
+
+.block-icons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 50px 20px;
+}
+
+.block-icons div {
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #f7f7f7;
+    border-radius: 5px;
+}
+
+.block-icons img {
+    margin-bottom: 5px;
+}
+
+.block-icons h4 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.block-icons p {
+    font-size: 14px;
+}
+
+.intro .searchAddress::-webkit-search-cancel-button {
+    /* -webkit-appearance: none; */
+    content: URL(https://fontawesome.com/icons/xmark?f=classic&s=solid&pc=%23379b37);
+    cursor: pointer;
+}
+
+.intro form {
+    width: 700px;
+    display: inline-block;
+}
+
+.intro .searchAddress {
+    padding: 20px;
+    margin-bottom: 15px;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.price-item div img {
+    width: 100px;
+}
+
+.price-item div {
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.price-item .car-class {
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    width: 340px;
+}
+
+.price-item .car-class .details {
+    display: inline-block;
+    margin: 5px 2px;
+    text-align: center;
+    border: none;
+}
+
+#directions {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+#directions h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#directions .rows {
+    margin: 20px;
+    display: inline-block;
+    padding: 50px;
+}
+
+#directions .rows ul {
+    text-decoration: none;
+    text-align: left !important;
+    list-style: none;
+}
+
+#directions .rows ul li {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+/* MAIN CSS */
+
+
+/* Footer */
+footer {
+    color: #333;
+    padding: 30px;
+    text-align: center;
+}
+
+.footer a {
+    color: #333333;
+    display: inline-block;
+    margin: 5px 5px;
+}
+
+.footer a:hover {
+    color: #000000;
+}
+
+
+/* Footer */
+
+hr {
+    margin: 0 150px;
+}

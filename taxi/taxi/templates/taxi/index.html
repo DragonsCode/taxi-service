@@ -1,0 +1,139 @@
+{% extends 'taxi/base.html' %}
+{% load static %}
+{% block content %}
+<div class="intro" >
+	<h1>TaxiGo - сервис надежного такси</h1>
+	<h2>Закажите такси уже сейчас</h2>
+	<form action="search">
+		<input type="search" name="address" class="searchAddress" placeholder="Откуда"/><br/>
+		<input type="search" name="address" class="searchAddress" placeholder="Куда"/><br/>
+		
+			<div class="price-item">
+				<div class="car-class">
+					<img class="details" src="{% static 'media/economy.png' %}" alt="">
+					<p class="details">Стандарт<br><i class="fa-solid fa-user" style="color: #000000;"></i>&times;3 <i class="fa-solid fa-suitcase" style="color: #000000;"></i>&times;3 </p>
+					<p class="details">от &#8381;</p>
+				</div>
+				<div class="car-class">
+					<img class="details" src="{% static 'media/comfort.png' %}" alt="">
+					<p class="details">Комфорт<br><i class="fa-solid fa-user" style="color: #000000;"></i>&times;3 <i class="fa-solid fa-suitcase" style="color: #000000;"></i>&times;3 </p>
+					<p class="details">от 9999&#8381;</p>
+				</div>
+				<div class="car-class">
+					<img class="details" src="{% static 'media/minivan.png' %}" alt="">
+					<p class="details">Минивэн<br><i class="fa-solid fa-user" style="color: #000000;"></i>&times;8 <i class="fa-solid fa-suitcase" style="color: #000000;"></i>&times;6 </p>
+					<p class="details">от &#8381;</p>
+				</div>
+			</div>
+		
+		<a href="{% url 'request_order' %}">Заказать сейчас</a>
+	</form>
+</div>
+
+<!--  -->
+<hr>
+
+<div id="how-we-work">
+	<h2>Как мы работаем?</h2>
+	<h3>
+		Мы обеспечиваем быстрые и комфортные поездки по городу и трансфер из
+		аэропорта
+	</h3>
+	<p>Заказать трансфер можно просто в несколько кликов на нашем сайте.</p>
+</div>
+<div class="icons">
+	<div id="find-icon">
+		<img src="{% static 'media/find-icon.svg' %}" width="50px" />
+		<h4>Поиск</h4>
+		<p>введите необходимый маршрут и даты в поисковом окне и нажмите “Найти”</p>
+	</div>
+	<div id="contract-icon">
+		<img src="{% static 'media/contract-icon.svg' %}" width="50px" />
+		<h4>Оформление</h4>
+		<p>выберете подходящий для Вас класс автомобиля и заполните форму заказа</p>
+	</div>
+	<div id="phone-icon">
+		<img src="{% static 'media/phone-icon.svg' %}" width="50px" />
+		<h4>Подтверждение</h4>
+		<p>
+			получите подтверждение Вашего заказа по почте, телефону или в соц. сетях
+		</p>
+	</div>
+	<div id="taxi-icon">
+		<img src="{% static 'media/taxi-icon.svg' %}" width="50px" />
+		<h4>Поездка</h4>
+		<p>
+			подача автомобиля к прибытию или на Ваш адрес, поездка по выбранному Вами
+			маршруту
+		</p>
+	</div>
+</div>
+
+<!--  -->
+<hr>
+<div id="advantages">
+	<h2>Наши преимущества</h2>
+	<h5>
+		Для комфортной поездки наш сервис предоставляет целый ряд базовых услуг
+	</h5>
+	<p>Мы следим за качеством выполнения каждой поездки!</p>
+</div>
+<div class="block-icons">
+	<div id="coins-icon">
+		<img src="{% static 'media/coins-icon.svg' %}" width="25px"/>
+		<h5>Фиксированная цена</h5>
+	</div>
+	<div id="ban-icon">
+		<img src="{% static 'media/ban-icon.svg' %}" width="25px"/>
+		<h5>Бесплатная отмена</h5>
+	</div>
+	<div id="clock-icon">
+		<img src="{% static 'media/clock-icon.svg' %}" width="25px"/>
+		<h5>Работаем 24/7</h5>
+	</div>
+	<div id="shield-icon">
+		<img src="{% static 'media/shield-icon.svg' %}" width="25px"/>
+		<h5>Безопасноть и опытные водители</h5>
+	</div>
+	<div id="car-icon">
+		<img src="{% static 'media/car-icon.svg' %}" width="25px"/>
+		<h4>Классификация автомобилей</h4>
+	</div>
+	<div id="info-icon">
+		<img src="{% static 'media/info-icon.svg' %}" width="25px"/>
+		<h5>СМС информирование</h5>
+	</div>
+	<div id="pet-icon">
+		<img src="{% static 'media/pet-icon.svg' %}" width="25px"/>
+		<h5>Перевозка питомцев</h5>
+	</div>
+</div>
+
+<hr>
+
+<div id="directions">
+	<h2>Наши направления</h2>
+	<div class="rows">
+		<ul>
+			<li>Аэропорт Минеральные воды</li>
+			<li>Кисловодск</li>
+			<li>Ессентуки</li>
+			<li>Эльбрус</li>
+		</ul>
+	</div>
+	<div class="rows">
+		<ul>
+			<li>Аэропорт Ставрополь</li>
+			<li>Пятигорск</li>
+			<li>Домбай</li>
+		</ul>
+	</div>
+	<div class="rows">
+		<ul>
+			<li>ЖД Вокзалы Кисловодск, Невинномыск</li>
+			<li>Ростов</li>
+			<li>Архыз</li>
+		</ul>	
+	</div>
+</div>
+{% endblock %}

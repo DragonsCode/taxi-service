@@ -1,0 +1,94 @@
+/* Client profile */
+
+.content-section {
+    padding: 20px;
+  }
+  
+  .media {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .account-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+  }
+  
+  .rounded-circle {
+    border-radius: 50%;
+  }
+  
+  .account-heading {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+  
+  .text-secondary {
+    color: #777;
+    margin-bottom: 0;
+  }
+  
+  .client-phone {
+    font-weight: bold;
+  }
+
+/* Client profile */
+
+/* Driver profile */
+
+.content-section {
+    padding: 20px;
+  }
+  
+  .media {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .account-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+  }
+  
+  .rounded-circle {
+    border-radius: 50%;
+  }
+  
+  .account-heading {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+  
+  .text-secondary {
+    color: #777;
+    margin-bottom: 0;
+  }
+  
+  .driver-info {
+    margin-top: 20px;
+  }
+  
+  .driver-info h3 {
+    margin-bottom: 10px;
+  }
+  
+  .car-details {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  
+  .car-details li {
+    margin-right: 20px;
+  }
+  
+  .driver-rating {
+    color: #f0ad4e; /* Adjust color based on rating system */
+    font-size: 18px;
+  }
+
+/* Driver profile */

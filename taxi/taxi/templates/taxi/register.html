@@ -1,0 +1,11 @@
+{% extends 'taxi/base.html' %}
+{% load static %}
+{% block content %}
+<div class="register-container">
+  <div class="register-options">
+    <h1>Регистрация</h1>
+    <a href="{% url 'register_client' %}">Зарегистрироваться как Клиент</a>
+    <a href="{% url 'register_driver' %}">Зарегистрироваться как Водитель</a>
+  </div>
+</div>
+{% endblock %}

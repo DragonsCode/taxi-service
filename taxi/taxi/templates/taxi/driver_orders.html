@@ -1,0 +1,42 @@
+{% extends 'taxi/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container taxi-theme">
+  <h1>Ваши назначенные заказы</h1>
+
+  {% if driver %}
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th class="order-id">ID заказа</th>
+          <th class="client-name">Клиент</th>
+          <th class="from">Откуда</th>
+          <th class="to">Куда</th>
+          <th class="price">Цена</th>
+          <th class="status">Статус</th>
+          <th class="details">Подробнее</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order in orders %}
+        <tr>
+          <td class="order-id">{{ order.pk }}</td>
+          <td class="client-name">{{ order.client.user.username }}</td>
+          <td class="from">{{ order.address_from }}</td>
+          <td class="to">{{ order.address_to }}</td>
+          <td class="price">{{ order.price }}</td>
+          <td class="status">{{ order.status }}</td>
+          <td class="details">
+            <a href="{% url 'order_driver_detail' order.pk %}">Подробнее</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+    <p>У вас пока нет назначенных заказов.</p>
+  {% endif %}
+</div>
+{% endblock %}

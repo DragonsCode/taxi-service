@@ -1,0 +1,162 @@
+<html>
+<head>
+    <style>
+        /* Add your custom CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: #908247;
+        }
+
+        .logo {
+           width: 100px;
+            height: 100px;
+        }
+
+        .nav {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav li {
+            margin: 0 10px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+
+        .banner {
+            height: 500px;
+            /* background-image: url("taxi.jpg"); Replace with your own image */
+            background-size: cover;
+            background-position: center;
+        }
+
+        .banner h1 {
+            color: white;
+            font-size: 60px;
+            text-align: center;
+            margin-top: 200px;
+        }
+
+        .booking {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            background-color: #e6e6e6;
+        }
+
+        .booking form {
+            width: 600px;
+            border: 2px solid #ffcc00;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .booking form h2 {
+            color: #ffcc00;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .booking form input {
+            width: 100%;
+            height: 40px;
+            margin: 10px 0;
+            border: 1px solid #cccccc;
+            padding: 10px;
+        }
+
+        .booking form button {
+            width: 100%;
+            height: 50px;
+            margin: 10px 0;
+            border: none;
+            background-color: #ffcc00;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: #333333;
+        }
+
+        .footer p {
+            color: white;
+            font-size: 14px;
+        }
+
+        .footer ul {
+            list-style: none;
+            display: flex;
+        }
+
+        .footer li {
+            margin: 0 10px;
+        }
+
+        .footer a {
+            text-decoration: none;
+            color: white;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="logo.png" alt="Logo" class="logo"> <!-- Replace with your own logo -->
+            <ul class="nav">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+        <div class="banner">
+            <h1>Book Your Taxi Online</h1>
+        </div>
+        <div class="booking">
+            <form>
+                <h2>Fill The Form Below</h2>
+                <input type="text" name="name" placeholder="Your Name">
+                <input type="text" name="phone" placeholder="Your Phone Number">
+                <input type="text" name="pickup" placeholder="Pickup Location">
+                <input type="text" name="dropoff" placeholder="Dropoff Location">
+                <input type="datetime-local" name="time" placeholder="Pickup Time">
+                <button type="submit">Book Now</button>
+            </form>
+        </div>
+        <div class="footer">
+            <p>© 2024 Taxi Service Company. All rights reserved.</p>
+            <ul>
+                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
