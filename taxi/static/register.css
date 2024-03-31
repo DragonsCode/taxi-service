@@ -1,101 +1,166 @@
+.register-container {
+    min-height: 430px;
+}
+
+
 .register-options {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 50px;
+    margin-top: 100px;
+  }
+
+  .register-options h1 {
+    margin-bottom: 20px;
   }
   
   .register-options a {
     text-decoration: none;
     font-size: 18px;
-    margin-bottom: 20px;
-    color: #333333;
+    margin-bottom: 10px;
+    color: rgb(55, 155, 55);
   }
   
   .register-options a:hover {
-    color: #000000;
+    color: green;
   }
 
 /* Register client */
 
 .client-registration-form {
-    margin: 50px auto;
-    width: 350px; /* Adjust width as needed */
+    margin: 60px auto 10px auto;
+    width: 500px; /* Adjust width as needed */
     padding: 20px;
-    border: 1px solid #ccc;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 5px;
+}
+
+.client-registration-form h1 {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .client-registration-form label {
     display: block;
     margin-bottom: 5px;
-    font-weight: bold;
+    font-size: 16px;
 }
 
 .client-registration-form input[type="text"],
 .client-registration-form input[type="password"],
-.client-registration-form input[type="email"] {
+.client-registration-form input[type="email"],
+.client-registration-form input[type="tel"] {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
     box-sizing: border-box;
+    margin-bottom: 10px;
 }
 
 .client-registration-form button {
-    background-color: #333333; /* Match footer color */
+    background-color: rgb(55, 155, 55); /* Match footer color */
     color: #ffffff;
     padding: 10px 20px;
     border: none;
     border-radius: 3px;
     cursor: pointer;
     margin-top: 10px;
+    font-size: 16px;
+    width: 100%;
 }
 
 .client-registration-form button:hover {
-    background-color: #222222; /* Darker shade on hover */
+    background-color: green; /* Darker shade on hover */
+}
+
+.client-register-container p {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.client-register-container p a {
+    color: rgb(55, 155, 55);
+}
+.client-register-container p a:hover {
+   color: green;
 }
 
 /* Register client */
 
 /* Register driver */
 
+.driver-registration-form h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
 .driver-registration-form {
-    margin: 50px auto;
-    width: 400px; /* Adjust width as needed */
+    margin: 60px auto 10px auto;
+    width: 500px; /* Adjust width as needed */
     padding: 20px;
-    border: 1px solid #ccc;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 5px;
 }
 
 .driver-registration-form label {
     display: block;
     margin-bottom: 5px;
-    font-weight: bold;
+    font-size: 16px;
 }
 
 .driver-registration-form input[type="text"],
 .driver-registration-form input[type="password"],
-.driver-registration-form input[type="email"] {
+.driver-registration-form input[type="email"],
+.driver-registration-form input[type="tel"],
+.driver-registration-form input[type="number"] {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
     box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.driver-registration-form input[type="file"] {
+    margin-bottom: 10px;
+}
+
+.driver-registration-form textarea {
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 .driver-registration-form button {
-    background-color: #333333; /* Match footer color */
+    background-color: rgb(55, 155, 55); /* Match footer color */
     color: #ffffff;
     padding: 10px 20px;
     border: none;
     border-radius: 3px;
     cursor: pointer;
     margin-top: 10px;
+    font-size: 16px;
+    width: 100%;
 }
 
 .driver-registration-form button:hover {
-    background-color: #222222; /* Darker shade on hover */
+    background-color: green; /* Darker shade on hover */
 }
+
+.driver-register-container p {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.driver-register-container p a {
+    color: rgb(55, 155, 55);
+}
+.driver-register-container p a:hover {
+   color: green;
+}
+
 
 /* Register driver */
