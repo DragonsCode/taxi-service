@@ -9,6 +9,14 @@
         <link rel="stylesheet" type="text/css" href="{% static 'profile.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'orders.css' %}">
         <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+         <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta property="og:title" content="TaxiGo">
         <meta property="og:type" content="website">
@@ -22,22 +30,40 @@
     </head>
 
     <header>
-        <nav>
-            <h1>TaxiGo</h1>
-            <ul>   
-                <li><a class="nav-link active" href="{% url 'index' %}">Главная</a></li>
-                {% if user.is_authenticated %} 
-                <li><a class="nav-link" href="{% url 'client_profile' %}">Профиль</a></li>
-                <li><a class="nav-link" href="{% url 'logout' %}">Выйти</a></li>
-                {% else %}
-                <li><a class="nav-link" href="{% url 'register_client' %}">Пассажирам</a></li>
-                <li><a class="nav-link" href="{% url 'register_driver' %}">Водителям</a></li>
-                <li><a class="nav-link" href="{% url 'login' %}">Войти</a></li>
-                <li><a class="nav-link" href="{% url 'register' %}">Регистрация</a></li>
-                {% endif %}
-            </ul>
-        </nav>
-    </header>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>                        
+        </button>
+        <a class="navbar-brand" href="{% url 'index' %}">TaxiGo</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          {% if user.is_authenticated %} 
+          <li><a href="{% url 'profile' %}">Профиль</a></li>
+          <li class="nav-item">
+            <form method="post" action="{% url 'logout' %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger">Выйти</button>
+            </form>
+          </li>
+          {% else %}
+          <li><a href="{% url 'register_client' %}">Пассажирам</a></li>
+          <li><a href="{% url 'register_driver' %}">Водителям</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span> Регистрация</a></li>
+          <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Войти</a></li>
+        </ul>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+</header>
+
 
     <body>
         {% block content %}

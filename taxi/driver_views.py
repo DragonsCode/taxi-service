@@ -24,8 +24,14 @@ def driver_profile(request):
 
 def driver_register(request):
     if request.method == 'POST':
-        user_form = DriverRegistrationForm(request.POST)
+        user_form = DriverRegistrationForm(request.POST, request.FILES)
+        print("POST")
+        print(user_form.is_valid())
+        print(user_form.cleaned_data)
+        print(request.FILES)
+        # print(user_form.cleaned_data['car_photo'])
         if user_form.is_valid():
+            print("OK")
             # Separate user and driver data extraction for clarity:
             user_data = {
                 'first_name': user_form.cleaned_data['first_name'],
@@ -46,22 +52,27 @@ def driver_register(request):
                 'description': user_form.cleaned_data['description'],
                 'car_type': user_form.cleaned_data['car_type'],
                 'experience': user_form.cleaned_data['experience'],
+                'verified': False,
                 # ... other driver-specific fields from form.cleaned_data
             }
+            print("COLLECTED DATA")
 
             # Create user object, ensuring secure password handling:
             User = get_user_model()
             user = User.objects.create_user(**user_data)
             user.set_password(user_data['password'])  # Set password securely
             user.save()
+            print("CREATED USER")
 
             # Create driver object associated with the user:
             driver = Driver.objects.create(user=user, **driver_data)
+            print("CREATED DRIVER")
 
             # Log in the user after successful registration:
             login(request, user)
+            print("LOGGED IN")
             return redirect('index')  # Replace with your desired redirect url
     else:
+        print("GET")
         user_form = DriverRegistrationForm()
-
     return render(request, 'taxi/register_driver.html', {'form': user_form})

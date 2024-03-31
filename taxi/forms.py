@@ -55,7 +55,7 @@ class ClientRegistrationForm(UserCreationForm):
 class NewOrderForm(forms.Form):
     address_from = forms.CharField(label='Адрес откуда', max_length=200, required=True, widget=forms.TextInput(attrs={'id': 'pick_up_address'}))
     address_to = forms.CharField(label='Адрес куда', max_length=200, required=True, widget=forms.TextInput(attrs={'id': 'drop_off_address'}))
-    car_type = forms.ChoiceField(label='Тип машины', choices=[('standard', 'Стандарт'), ('comfort', 'Комфорт'), ('minivan', 'Минивэн')], required=True, widget=forms.Select(attrs={'id': 'car_type'}))
+    car_type = forms.ChoiceField(label='Тип машины', choices=[('standard', 'Стандарт'), ('comfort', 'Комфорт'), ('minivan', 'Минивэн')], required=True, widget=forms.RadioSelect(attrs={'id': 'car_type'}))
     date_arrive = forms.DateTimeField(label='Дата прибытия', initial=datetime.now() + timedelta(hours=1), required=True, widget=forms.DateTimeInput(attrs={'id': 'date_arrive_field', 'type': 'datetime-local'}))
     additional_seats = forms.IntegerField(label='Дополнительные места', min_value=0, initial=0, required=False)
     additional_poster = forms.IntegerField(label='Дополнительный постер', min_value=0, initial=0, required=False)
@@ -77,7 +77,7 @@ class NewUserOrderForm(UserCreationForm):
 
     address_from = forms.CharField(label='Адрес откуда', max_length=200, required=True, widget=forms.TextInput(attrs={'id': 'pick_up_address'}))
     address_to = forms.CharField(label='Адрес куда', max_length=200, required=True, widget=forms.TextInput(attrs={'id': 'drop_off_address'}))
-    car_type = forms.ChoiceField(label='Тип машины', choices=[('standard', 'Стандарт'), ('comfort', 'Комфорт'), ('minivan', 'Минивэн')], required=True, widget=forms.Select(attrs={'id': 'car_type'}))
+    car_type = forms.ChoiceField(label='Тип машины', choices=[('standard', 'Стандарт'), ('comfort', 'Комфорт'), ('minivan', 'Минивэн')], required=True, widget=forms.RadioSelect(attrs={'id': 'car_type'}))
     date_arrive = forms.DateTimeField(label='Дата прибытия', initial=datetime.now() + timedelta(hours=1), required=True, widget=forms.DateTimeInput(attrs={'id': 'date_arrive_field', 'type': 'datetime-local'}))
     additional_seats = forms.IntegerField(label='Дополнительные места', min_value=0, max_value=2, initial=0, required=False)
     additional_poster = forms.IntegerField(label='Дополнительный постер', min_value=0, max_value=5, initial=0, required=False)
