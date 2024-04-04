@@ -19,6 +19,7 @@ import folium
 
 def request_order(request):
     if request.method == 'POST':
+        User = get_user_model()
         # Use NewUserOrderForm for both authenticated and unauthenticated users
         if not request.user.is_authenticated:
             form = NewUserOrderForm(request.POST)
@@ -29,14 +30,19 @@ def request_order(request):
                     email=form.cleaned_data['email'],
                     password=form.cleaned_data['password1']
                 )
+                user.first_name = form.cleaned_data['first_name']
+                user.last_name = form.cleaned_data['last_name']
+                user.save()
+                
+                client_data = {
+                    'middle_name': form.cleaned_data['middle_name'],
+                    'phone': form.cleaned_data['phone'],
+                    # ... other client-specific fields from form.cleaned_data
+                }
                 # Create a new Client instance associated with the User
-                client = Client.objects.create(user=user)
+                client = Client.objects.create(user=user, **client_data)
 
                 # Populate remaining Client fields and Order data
-                client.first_name = form.cleaned_data['first_name']
-                client.last_name = form.cleaned_data['last_name']
-                client.middle_name = form.cleaned_data['middle_name']
-                client.phone = form.cleaned_data['phone']
                 client.save()
             else:
                 return render(request, 'taxi/request_order.html', {'form': form})
