@@ -4,6 +4,10 @@
 {% block content %}
 
 <div class="order-container"> 
+    <div>
+        <img src="{% static 'media/economy.png' %}" width="200px" id="car_icon"/>
+    </div>
+
     <form id="taxi-order-form" method="post">
         <h1>Заказать Такси</h1>
         {% csrf_token %}
@@ -14,7 +18,9 @@
         <button type="submit">Заказать Такси</button>
     </form>
     
-    <div id="map-container"></div>
+    <div id="map-container">
+        <iframe id="map" src="/route/" width="600" height="450"></iframe>
+    </div>
 </div>
 
 <script>
@@ -23,8 +29,7 @@ $(document).ready(function() {
     //
     // });
 
-    // Whenever the address or car type fields change:
-    $('#pick_up_address, #drop_off_address, #car_type').change(function() {
+    function show() {
         var pickUpAddress = $('#pick_up_address').val();
         var dropOffAddress = $('#drop_off_address').val();
         var carType = $('#car_type').val();
@@ -42,11 +47,27 @@ $(document).ready(function() {
                 // Update the price field with the calculated price
                 $('#price_field').val(Math.ceil(response.price));
                 $('#distance_field').val(Math.ceil(response.distance));
+                $('#map').attr('src', `/route?point1_lat=${response.pick_coords[1]}&point1_lon=${response.pick_coords[0]}&point2_lat=${response.drop_coords[1]}&point2_lon=${response.drop_coords[0]}`);
             },
             error: function() {
                 // Handle AJAX errors (e.g., display an error message)
             }
         });
+        if (carType == 'minivan') {
+            $('#car_icon').attr('src', `{% static 'media/minivan.png' %}`);
+        }
+        else if (carType == 'comfort') {
+            $('#car_icon').attr('src', `{% static 'media/comfort.png' %}`);
+        }
+        else {
+            $('#car_icon').attr('src', `{% static 'media/economy.png' %}`);
+        }
+    }
+    show();
+
+    // Whenever the address or car type fields change:
+    $('#pick_up_address, #drop_off_address, #car_type').change(function() {
+        show();
     });
 });
 </script>

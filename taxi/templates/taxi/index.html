@@ -5,8 +5,8 @@
 	<h1>TaxiGo - сервис надежного такси</h1>
 	<h2>Закажите такси уже сейчас</h2>
 	<form action="search">
-		<input type="search" name="address" class="searchAddress" placeholder="Откуда"/><br/>
-		<input type="search" name="address" class="searchAddress" placeholder="Куда"/><br/>
+		<input type="search" name="address" class="searchAddress" placeholder="Откуда" id="address_from"/><br/>
+		<input type="search" name="address" class="searchAddress" placeholder="Куда" id="address_to"/><br/>
 		
 			<div class="price-item">
 				<div class="car-class">
@@ -26,7 +26,7 @@
 				</div>
 			</div>
 		
-		<a href="{% url 'request_order' %}">Заказать сейчас</a>
+		<a href="{% url 'request_order' %}" id="order-link">Заказать сейчас</a>
 	</form>
 </div>
 
@@ -136,4 +136,15 @@
 		</ul>	
 	</div>
 </div>
+<script>
+	function getAddress() {
+		var addressFrom = $("#address_from").val();
+		var addressTo = $("#address_to").val();
+		$("#order-link").attr("href", "{% url 'request_order' %}?address_from=" + addressFrom + "&address_to=" + addressTo);
+	}
+	getAddress();
+	$("#address_from", "#address_to").change(function() {
+		getAddress();
+	})
+</script>
 {% endblock %}

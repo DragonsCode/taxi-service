@@ -82,7 +82,7 @@ def calculate_order(pick_up_address, drop_off_address, car_type):
     calculated_price = prices.get(car_type, 250) * distance_km  # Handle non-existent car types
 
     # Return a calculated price
-    return calculated_price, distance_km
+    return calculated_price, distance_km, pick_coords, drop_coords
 
 # res1 = pos('Россия, Минеральные воды')
 # res2 = geo(res1[0], res1[1], 'ru')

@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-9f(#__1zlh2$y_1n9n(l-*iap^u@-u)lm!c2*(*kj80w61%78b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0:8000', 'bb4d-84-54-84-124.ngrok-free.app']
+ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0:8000']
 
 
 # Application definition
@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'taxi.middleware.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'taxist.urls'
@@ -149,3 +150,5 @@ AUTH_USER_MODEL = "taxi.CustomUser"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
