@@ -37,7 +37,6 @@ def client_register(request):
             client_data = {
                 'middle_name': user_form.cleaned_data['middle_name'],
                 'phone': user_form.cleaned_data['phone'],
-                'photo': user_form.cleaned_data['photo'],
                 # ... other client-specific fields from form.cleaned_data
             }
 

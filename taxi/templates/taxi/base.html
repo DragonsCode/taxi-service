@@ -36,7 +36,7 @@
                 <li><a class="nav-link" href="{% url 'index' %}">Главная</a></li>
                 {% if user.is_authenticated %} 
                 <li><a class="nav-link" href="{% url 'client_profile' %}">Профиль</a></li>
-                <li><a class="nav-link" href="{% url 'logout' %}">Выйти</a></li>
+                <li><form method="post" action="{% url 'logout' %}">{% csrf_token %}<a class="nav-link" href="#" onclick="this.parentNode.submit()">Выйти</a></form></li>
                 {% else %}
                 {% comment %} <li><a class="nav-link" href="{% url 'about' %}">О нас</a></li> {% endcomment %}
                 <li><a class="nav-link" href="{% url 'for_drivers' %}">Стать перевозчиком</a></li>
@@ -52,9 +52,7 @@
           {{message|escape}}
         </div>
         {% endfor %}
-    {% endif %}  
-    
-    {% block content %}{% endblock %}
+    {% endif %}
 
     <body>
         {% block content %}

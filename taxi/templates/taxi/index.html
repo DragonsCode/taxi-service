@@ -4,8 +4,8 @@
 <div class="intro" >
 	<h1>Трансферы и поездки</h1>
 	<form action="search">
-		<input type="search" name="address" class="searchAddress" placeholder="Откуда: адрес, аэропорт, отель" id="address_from"/><br/>
-		<input type="search" name="address" class="searchAddress" placeholder="Куда: адрес, аэропорт, отель" id="address_to"/><br/>
+		<input type="text" name="address" class="searchAddress" placeholder="Откуда: адрес, аэропорт, отель" id="address_from"/><br/>
+		<input type="text" name="address" class="searchAddress" placeholder="Куда: адрес, аэропорт, отель" id="address_to"/><br/>
 		
 			<div class="price-item">
 				<div class="car-class left">
@@ -142,6 +142,7 @@
 	function getAddress() {
 		var addressFrom = $("#address_from").val();
 		var addressTo = $("#address_to").val();
+		console.log(addressFrom, addressTo);
 		$("#order-link").attr("href", "{% url 'request_order' %}?address_from=" + addressFrom + "&address_to=" + addressTo);
 	}
 	getAddress();
