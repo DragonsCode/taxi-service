@@ -1,6 +1,7 @@
 {% extends 'taxi/base.html' %}
 {% load static %}
 {% block content %}
+<div class="order-details-container">
 <h1>Детали заказа №{{ order.pk }}</h1>
 
 <div class="order-details">
@@ -19,5 +20,6 @@
 {% else %}
   <p>Заказ завершен</p>
 {% endif %}
+</div>
 
 {% endblock %}

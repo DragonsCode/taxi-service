@@ -1,10 +1,19 @@
 /* driver and client orders */
+.order-container {
+  display: flex;
+  margin: auto;
+}
+
+#map-container {
+  margin: 60px auto 60px 15px;
+}
 
 #taxi-order-form {
-  margin: 60px auto 60px auto;
+  margin: 60px 15px 60px auto;
   width: 500px; /* Adjust width as needed */
   padding: 20px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);    border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 5px;
 }
 
@@ -27,10 +36,13 @@
 #taxi-order-form input[type="text"],
 #taxi-order-form select,
 #taxi-order-form input[type="datetime-local"],
-#taxi-order-form input[type="number"] {
+#taxi-order-form input[type="number"],
+#taxi-order-form input[type="tel"],
+#taxi-order-form input[type="email"],
+#taxi-order-form input[type="password"] {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 3px;
   box-sizing: border-box;
   margin-bottom: 10px;
@@ -52,13 +64,41 @@
   background-color: green;
 }
 
+#overall-card {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);   
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  width: 300px;
+  font-size: 14px;
+  border-radius: 5px;
+  padding: 15px;
+  margin-top: 30px;
+}
+
+#overall-card img {
+  display: block;
+  margin: 5px auto 20px auto;
+}
+
+#overall-card p {
+  margin-bottom: 10px;
+}
+
 .taxi-theme {
-    background-color: #ffe0c7;
-  }
+  min-height: 460px;
+}
+
+.taxi-theme h1 {
+  margin: 60px auto 20px auto;
+  text-align: center;
+}
+
+.table-container table {
+  margin: auto;
+}
   
   /* Table styles */
   table {
-    border: 1px solid #f7f7f7;
+    border: 1px solid rgba(0, 0, 0, 0.5);
   }
   
   th, td {
@@ -66,8 +106,9 @@
   }
   
   th {
-    background-color: #f7f7f7;
+    background-color: orangered;
     color: #333333;
+    border: 1px solid rgba(0, 0, 0, 0.5);
   }
   
   tr:nth-child(even) {
@@ -84,15 +125,53 @@
   .status,
   .details {
     text-align: left;
+    border: 1px solid rgba(0, 0, 0, 0.5);
   }
   
   .details a {
-    color: #000000;
+    color: rgb(55, 155, 55);
     text-decoration: none;
   }
   
   .details a:hover {
     text-decoration: underline;
+    color: green;
   }
 
 /* driver and client orders */
+
+/* Order details */
+.order-details-container {
+  min-height: 460px;
+}
+.order-details-container h1 {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.order-details {
+  margin: 20px auto 10px auto;
+  width: 500px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);   
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.order-details p {
+  margin-bottom: 10px;
+}
+
+.cancel {
+  text-align: center;
+  margin-bottom: 60px;
+  color: red;
+}
+
+.cancel a {
+  color: rgb(55, 155, 55);
+}
+
+.cancel a:hover {
+  color: green;
+}

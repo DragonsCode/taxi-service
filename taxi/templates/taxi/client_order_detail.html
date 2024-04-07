@@ -1,6 +1,7 @@
 {% extends 'taxi/base.html' %}
 {% load static %}
 {% block content %}
+<div class="order-details-container">
 <h1>Детали заказа №{{ order.pk }}</h1>
 
 <div class="order-details">
@@ -15,9 +16,9 @@
 </div>
 
 {% if order.status != 'Новый' %}
-  <p>Нельзя отменить заказ</p>
+  <p class="cancel">Нельзя отменить заказ</p>
 {% else %}
-  <a href="{% url 'client_order_cancel' order.pk %}">Отменить заказ</a>
+  <p class="cancel"><a href="{% url 'client_order_cancel' order.pk %}">Отменить заказ</a></p>
 {% endif %}
-
+</div>
 {% endblock %}

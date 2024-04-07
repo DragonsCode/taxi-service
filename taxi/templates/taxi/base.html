@@ -1,7 +1,8 @@
 {% load static %}
 <html>
     <head>
-        <title>TaxiGo</title>
+
+        <title>Gogory.ru</title>
         <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'logout.css' %}">
@@ -10,60 +11,50 @@
         <link rel="stylesheet" type="text/css" href="{% static 'orders.css' %}">
         <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
          <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
         <!-- jQuery library -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
         <!-- Latest compiled JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta property="og:title" content="TaxiGo">
         <meta property="og:type" content="website">
-        <meta property="og:image" content="{% static 'media/logo.png' %}">
+        <meta property="og:image" content="#">
         <meta property="og:url" content="#">
-        <meta property="og:description" content="TaxiGo - сервис надежного такси">
+        <meta property="og:description" content="Gogory - сервис надежного такси">
         <meta property="og:locale" content="ru">
         <script src="https://kit.fontawesome.com/09207fd670.js" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
       
     </head>
 
     <header>
-  <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>                        
-        </button>
-        <a class="navbar-brand" href="{% url 'index' %}">TaxiGo</a>
-      </div>
-      <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav">
-          {% if user.is_authenticated %} 
-          <li><a href="{% url 'profile' %}">Профиль</a></li>
-          <li class="nav-item">
-            <form method="post" action="{% url 'logout' %}">
-              {% csrf_token %}
-              <button type="submit" class="btn btn-danger">Выйти</button>
-            </form>
-          </li>
-          {% else %}
-          <li><a href="{% url 'register_client' %}">Пассажирам</a></li>
-          <li><a href="{% url 'for_drivers' %}">Водителям</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span> Регистрация</a></li>
-          <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Войти</a></li>
-        </ul>
-        {% endif %}
-      </div>
-    </div>
-  </nav>
-</header>
-
+        <nav>
+            <h1>Gogory.ru</h1>
+            <ul>   
+                <li><a class="nav-link" href="{% url 'index' %}">Главная</a></li>
+                {% if user.is_authenticated %} 
+                <li><a class="nav-link" href="{% url 'client_profile' %}">Профиль</a></li>
+                <li><a class="nav-link" href="{% url 'logout' %}">Выйти</a></li>
+                {% else %}
+                {% comment %} <li><a class="nav-link" href="{% url 'about' %}">О нас</a></li> {% endcomment %}
+                <li><a class="nav-link" href="{% url 'for_drivers' %}">Стать перевозчиком</a></li>
+                <li><a class="nav-link" href="{% url 'login' %}">Войти</a></li>
+                <li><a class="nav-link" href="{% url 'register' %}">Регистрация</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{message.tags}}" role="alert">
+          {{message|escape}}
+        </div>
+        {% endfor %}
+    {% endif %}  
+    
+    {% block content %}{% endblock %}
 
     <body>
         {% block content %}
@@ -75,26 +66,10 @@
         <div class="footer">
             <a href="{% url 'privacy_policy' %}">Политика конфиденциальности</a>
             <a href="{% url 'user_agreement' %}">Пользовательское соглашение</a><br>
-            <h2>TaxiGo</h2>
-            <p>&copy;2024 TaxiGo</p>
+            <h3>Gogory.ru</h3>
+            <p>&copy;2024 Gogory.ru</p>
         </div>
       </div>
     </footer>
 
-    <script>
-        let header = document.getElemeentsByTagName("header");
-        let nav = document.getElementsByTagName("nav");
-        let ul = document.getElemeentsByTagName("ul");
-        let li = document.createElement('li'); 
-        let a = document.getElementsByClassName("nav-link");
-        for (let i = 0; i < a.length; i++) {
-            a[i].addEventListener("click", function() {
-            let current = document.getElementsByClassName("active");
-            if (current.length > 0) { 
-            current[0].className = current[0].className.replace(" active", "");
-            }
-            this.className += " active";
-        });
-        }
-    </script>
 </html>

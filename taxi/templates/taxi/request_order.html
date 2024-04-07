@@ -4,22 +4,30 @@
 {% block content %}
 
 <div class="order-container"> 
-    <div>
-        <img src="{% static 'media/economy.png' %}" width="200px" id="car_icon"/>
-    </div>
-
+    
     <form id="taxi-order-form" method="post">
         <h1>Заказать Такси</h1>
         {% csrf_token %}
-    
+        
         <h3>Детали заказа:</h3>
         {{ form|crispy }}
-    
+        
         <button type="submit">Заказать Такси</button>
     </form>
     
     <div id="map-container">
-        <iframe id="map" src="/route/" width="600" height="450"></iframe>
+        <iframe id="map" src="/route/" width="600" height="500"></iframe>
+        <div id="overall-card">
+            <img src="{% static 'media/economy.png' %}" width="200px" id="car_icon"/>
+
+            <p>Тариф: </p>
+            <p>Дата/время: </p>
+            <p>Место отпраления: {{ order.address_from }}</p>
+            <p>Место прибытия: {{ order.address_to }}</p>
+            <p>Время в пути: </p>
+            
+            <hr>
+        </div>
     </div>
 </div>
 
