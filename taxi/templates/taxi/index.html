@@ -146,7 +146,10 @@
 		$("#order-link").attr("href", "{% url 'request_order' %}?address_from=" + addressFrom + "&address_to=" + addressTo);
 	}
 	getAddress();
-	$("#address_from", "#address_to").change(function() {
+	$("#address_from").change(function() {
+		getAddress();
+	});
+	$("#address_to").change(function() {
 		getAddress();
 	})
 </script>
