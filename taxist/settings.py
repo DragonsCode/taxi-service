@@ -26,8 +26,8 @@ SECRET_KEY = 'django-insecure-9f(#__1zlh2$y_1n9n(l-*iap^u@-u)lm!c2*(*kj80w61%78b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0:8000']
-
+ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0:8000', '*']
+CSRF_TRUSTED_ORIGINS = ['https://0ddf-213-230-112-64.ngrok-free.app', '*']
 
 # Application definition
 
@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'taxi.middleware.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'taxist.urls'

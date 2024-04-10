@@ -7,6 +7,7 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('user_agreement/', views.user_agreement, name='user_agreement'),
     path('privacy_policy/', views.privacy_policy, name='privacy_policy'),
+    path('for_drivers/', views.for_drivers, name='for_drivers'),
 
     path('login/', LoginView.as_view(template_name='taxi/login.html'), name='login'),
     path('logout/', LogoutView.as_view(template_name='taxi/logout.html'), name='logout'),

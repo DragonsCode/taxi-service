@@ -2,31 +2,30 @@
 {% load static %}
 {% block content %}
 <div class="intro" >
-	<h1>TaxiGo - сервис надежного такси</h1>
-	<h2>Закажите такси уже сейчас</h2>
+	<h1>Трансферы и поездки</h1>
 	<form action="search">
-		<input type="search" name="address" class="searchAddress" placeholder="Откуда"/><br/>
-		<input type="search" name="address" class="searchAddress" placeholder="Куда"/><br/>
+		<input type="text" name="address" class="searchAddress" placeholder="Откуда: адрес, аэропорт, отель" id="address_from"/><br/>
+		<input type="text" name="address" class="searchAddress" placeholder="Куда: адрес, аэропорт, отель" id="address_to"/><br/>
 		
 			<div class="price-item">
-				<div class="car-class">
+				<div class="car-class left">
 					<img class="details" src="{% static 'media/economy.png' %}" alt="">
 					<p class="details">Стандарт<br><i class="fa-solid fa-user" style="color: #000000;"></i>&times;3 <i class="fa-solid fa-suitcase" style="color: #000000;"></i>&times;3 </p>
-					<p class="details">от &#8381;</p>
+					{% comment %} <p class="details">от &#8381;</p> {% endcomment %}
 				</div>
-				<div class="car-class">
+				<div class="car-class right">
 					<img class="details" src="{% static 'media/comfort.png' %}" alt="">
 					<p class="details">Комфорт<br><i class="fa-solid fa-user" style="color: #000000;"></i>&times;3 <i class="fa-solid fa-suitcase" style="color: #000000;"></i>&times;3 </p>
-					<p class="details">от 9999&#8381;</p>
+					{% comment %} <p class="details">от 9999&#8381;</p> {% endcomment %}
 				</div>
-				<div class="car-class">
+				<div class="car-class left">
 					<img class="details" src="{% static 'media/minivan.png' %}" alt="">
 					<p class="details">Минивэн<br><i class="fa-solid fa-user" style="color: #000000;"></i>&times;8 <i class="fa-solid fa-suitcase" style="color: #000000;"></i>&times;6 </p>
-					<p class="details">от &#8381;</p>
+					{% comment %} <p class="details">от &#8381;</p> {% endcomment %}
 				</div>
 			</div>
 		
-		<button type="sumbit">заказать сейчас</button>
+		<a href="{% url 'request_order' %}" id="order-link">Заказать сейчас</a>
 	</form>
 </div>
 
@@ -113,27 +112,45 @@
 
 <div id="directions">
 	<h2>Наши направления</h2>
-	<div class="rows">
-		<ul>
-			<li>Аэропорт Минеральные воды</li>
-			<li>Кисловодск</li>
-			<li>Ессентуки</li>
-			<li>Эльбрус</li>
-		</ul>
-	</div>
-	<div class="rows">
-		<ul>
-			<li>Аэропорт Ставрополь</li>
-			<li>Пятигорск</li>
-			<li>Домбай</li>
-		</ul>
-	</div>
-	<div class="rows">
-		<ul>
-			<li>ЖД Вокзалы Кисловодск, Невинномыск</li>
-			<li>Ростов</li>
-			<li>Архыз</li>
-		</ul>	
+	<div class="direction-container">
+		<div id="row-1">
+			<ul>
+				<li><img src="{% static 'media/plane-departure-icon.svg' %}"> Аэропорт Минеральные воды</li>
+				<li><img src="{% static 'media/plane-departure-icon.svg' %}"> Аэропорт Ставрополь</li>
+				<li><img src="{% static 'media/train-icon.svg' %}"> ЖД Вокзалы Кисловодск, Невинномыск</li>
+			</ul>
+		</div>
+		<div id="row-2">
+			<ul>
+				<li><img src="{% static 'media/mountain-icon.svg' %}"> Архыз</li>
+				<li><img src="{% static 'media/mountain-icon.svg' %}">Домбай</li>
+				<li><img src="{% static 'media/mountain-icon.svg' %}">Эльбрус</li>
+			</ul>
+		</div>
+		<div id="row-3">
+			<ul>
+				<li><img src="{% static 'media/city-icon.svg' %}"> Ессентуки</li>
+				<li><img src="{% static 'media/city-icon.svg' %}"> Кисловодск</li>
+				<li><img src="{% static 'media/city-icon.svg' %}"> Пятигорск</li>
+				<li><img src="{% static 'media/city-icon.svg' %}"> Ростов</li>
+			</ul>	
+		</div>
 	</div>
 </div>
+
+<script>
+	function getAddress() {
+		var addressFrom = $("#address_from").val();
+		var addressTo = $("#address_to").val();
+		console.log(addressFrom, addressTo);
+		$("#order-link").attr("href", "{% url 'request_order' %}?address_from=" + addressFrom + "&address_to=" + addressTo);
+	}
+	getAddress();
+	$("#address_from").change(function() {
+		getAddress();
+	});
+	$("#address_to").change(function() {
+		getAddress();
+	})
+</script>
 {% endblock %}

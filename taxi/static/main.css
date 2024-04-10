@@ -7,7 +7,7 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 16px;
     color: #333333;
     background-color: #f7f7f7;
@@ -44,11 +44,15 @@ nav {
     padding: 10px 20px;
 }
 
+nav h1 {
+    margin-left: 200px;
+}
+
 
 nav ul {
     display: flex;
     list-style: none;
-    margin: 0;
+    margin-right: 170px;
 }
 
 nav li {
@@ -70,15 +74,15 @@ nav .active, nav a:hover {
 /* MAIN CSS */
 
 .intro {
-    /* background: url('./media/bg-taxi.jpg') repeat center; */
     color: #333333;
     text-align: center;
     padding: 100px 20px;
+    margin-top: -30px;
 }
 
 .intro h1 {
     font-size: 36px;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
 }
 
 .intro h2 {
@@ -86,20 +90,24 @@ nav .active, nav a:hover {
     margin-bottom: 20px;
 }
 
-.intro button {
+.intro a {
     background-color: rgb(55, 155, 55);
     color: #ffffff;
     font-size: 16px;
+    display: inline-block;
     padding: 10px 20px;
-    width: 100%;
+    width: 100% ;
     border: none;
     border-radius: 25px;
     cursor: pointer;
+    text-decoration: none;
 }
 
-.intro button:hover {
+.intro a:hover {
     background-color: green;
+    color: #f7f7f7;
 }
+
 
 #how-we-work {
     padding: 50px 20px;
@@ -149,7 +157,6 @@ nav .active, nav a:hover {
 #advantages {
     color: #333333;
     padding: 50px 20px;
-    /* margin-bottom: 30px; */
 }
 
 #advantages h2 {
@@ -200,7 +207,7 @@ nav .active, nav a:hover {
 
 .intro .searchAddress::-webkit-search-cancel-button {
     /* -webkit-appearance: none; */
-    content: URL(https://fontawesome.com/icons/xmark?f=classic&s=solid&pc=%379b37);
+    content: URL(https://fontawesome.com/icons/xmark?f=classic&s=solid&pc=%23379b37);
     cursor: pointer;
 }
 
@@ -211,38 +218,53 @@ nav .active, nav a:hover {
 
 .intro .searchAddress {
     padding: 20px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     width: 100%;
     border-radius: 5px;
     border: none;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 .price-item div img {
-    width: 100px;
-}
-
-.price-item div {
-    display: inline-block;
-    margin-bottom: 15px;
+    width: 50px;
 }
 
 .price-item .car-class {
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    justify-content: space-between;
+    margin: 0 auto 10px auto;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 0, 0, 0.3);
     border-radius: 15px;
     width: 340px;
 }
+
+.price-item .left {
+    margin-left: 0 !important;
+}
+
+.price-item .right {
+    margin-right: 0 !important;
+}
+
 
 .price-item .car-class .details {
     display: inline-block;
     margin: 5px 2px;
     text-align: center;
+    border: none;
+    width: 30%;
+    display: inline-flexbox;
 }
 
 #directions {
     padding: 50px 20px;
-    text-align: center;
+}
+
+#directions .direction-container {
+    display: flex;
+    justify-content: center;
 }
 
 #directions h2 {
@@ -251,22 +273,39 @@ nav .active, nav a:hover {
     margin-bottom: 20px;
 }
 
-#directions .rows {
+#directions #row-1,
+#directions #row-2 {
     margin: 20px;
     display: inline-block;
-    padding: 50px;
+    top: 20px;
 }
 
-#directions .rows ul {
+#directions #row-3 {
+    margin: 20px;
+    display: inline-block;
+}
+
+#directions #row-1 ul,
+#directions #row-2 ul,
+#directions #row-3 ul {
     text-decoration: none;
     text-align: left !important;
     list-style: none;
 }
 
-#directions .rows ul li {
+#directions #row-1 ul li,
+#directions #row-2 ul li,
+#directions #row-3 ul li {
     margin-bottom: 10px;
     font-size: 18px;
 }
+
+
+
+#directions ul li img {
+    width: 20px;
+}
+
 /* MAIN CSS */
 
 
@@ -285,6 +324,10 @@ footer {
 
 .footer a:hover {
     color: #000000;
+}
+
+.footer h3 {
+    margin-bottom: 5px;
 }
 
 

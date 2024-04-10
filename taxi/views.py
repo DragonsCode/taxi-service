@@ -74,8 +74,12 @@ def request_order(request):
         # Handle successful order creation (e.g., redirect to confirmation page)
         return redirect('profile')
     else:
+        # Handle GET request
+        address_from = request.GET.get('address_from', '')
+        address_to = request.GET.get('address_to', '')
+
         if not request.user.is_authenticated:
-            form = NewUserOrderForm()
+            form = NewUserOrderForm(initial={'address_from': address_from, 'address_to': address_to})
             return render(request, 'taxi/request_order.html', {'form': form})
         
         User = get_user_model()
@@ -88,7 +92,7 @@ def request_order(request):
             messages.error(request, 'Клиент не найден')
             return redirect('client_register')
         
-        form = NewOrderForm()
+        form = NewOrderForm(initial={'address_from': address_from, 'address_to': address_to})
 
         return render(request, 'taxi/request_order.html', {'form': form})
 
@@ -98,10 +102,10 @@ def calculate_price(request):
     drop_off_address = request.GET.get('drop_off_address')
     car_type = request.GET.get('car_type')
     try:
-        calculated_price, distance_km = calculate_order(pick_up_address, drop_off_address, car_type)
+        calculated_price, distance_km, pick_coords, drop_coords = calculate_order(pick_up_address, drop_off_address, car_type)
     except Exception as e:
         return JsonResponse({'error': str(e)})
-    return JsonResponse({'price': calculated_price, 'distance': distance_km})
+    return JsonResponse({'price': calculated_price, 'distance': distance_km, 'pick_coords': pick_coords, 'drop_coords': drop_coords})
 
 
 def show_route(request):
@@ -109,6 +113,11 @@ def show_route(request):
     point1_lon = request.GET.get('point1_lon')
     point2_lat = request.GET.get('point2_lat')
     point2_lon = request.GET.get('point2_lon')
+
+    if not point1_lat or not point1_lon or not point2_lat or not point2_lon:
+        my_map = folium.Map()
+        map_html = my_map.get_root().render()
+        return HttpResponse(map_html)
 
     # Запрос к OSRM API для получения маршрута для автомобиля
     osrm_url = f'http://router.project-osrm.org/route/v1/driving/{point1_lon},{point1_lat};{point2_lon},{point2_lat}?overview=full&steps=true'
@@ -163,6 +172,9 @@ def profile(request):
 
 def register(request):
     return render(request, 'taxi/register.html')
+
+def for_drivers(request):
+    return render(request, 'taxi/for_drivers.html')
 
 def index(request):
     context = {}

@@ -6,7 +6,7 @@
 <div class="driver-register-container">
     <div class="driver-registration-form">
         <h1>Регистрация Водителя</h1>
-        <form method="post">
+        <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form|crispy }}
             <button type="submit">Зарегистрироваться</button>
